@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SUra</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+    <header class="header">
+        <a href="#home" class="logo"> SuRA <span>Coder</span></a>
+        <i class="bx bx-menu" id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#home" class="nav-link">Home</a>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-content">
+            <h1>Hey, It's me <span id="typewriter"></span></h1>
+            <h3>I'm a Beginner <span id="typewriter2"></span></h3>
+            <p>I'm Sura as you already know, I love coding and designing pages, in the meantime I'm learning HTML, CSS,
+                JS.
+                I'm still a beginner but I want to learn more of them. Peace!</p>
+
+            <div class="social-icons">
+                <a href="https://www.snapchat.com/add/kali.sura" target="_blank" rel="noopener noreferrer"
+                    aria-label="Snapchat">
+                    <i class="bx bxl-snapchat"></i>
+                </a>
+            </div>
+
+            <div class="btn-group">
+                <a href="mailto:iwe184949@gmail.com?subject=Hire Request&body=Not availble for work%0D%0AI"
+                    class="btn">Hire</a>
+                <a href="mailto:iwe184949@gmail.com?subject=Contact Inquiry&body=Hello Sura,%0D%0AI would like to contact you."
+                    class="btn">Contact</a>
+            </div>
+        </div>
+
+        <div class="home-img">
+            <img src="c:\Users\davo\Downloads\Tony Montana.jfif" alt="Tony Montana" />
+        </div>
+    </section>
+
+    <script>
+        function scrambleText(element, finalText, intervalSpeed = 50, pauseBetween = 100, callback) {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let currentIndex = 0;
+            const maxCycles = 10;
+
+            function randomChar() {
+                return chars[Math.floor(Math.random() * chars.length)];
+            }
+
+            function revealNextLetter() {
+                let cycles = 0;
+
+                const interval = setInterval(() => {
+                    let displayed = element.textContent.split('');
+                    displayed[currentIndex] = randomChar();
+                    element.textContent = displayed.join('');
+
+                    cycles++;
+                    if (cycles >= maxCycles) {
+                        clearInterval(interval);
+                        let updated = element.textContent.split('');
+                        updated[currentIndex] = finalText[currentIndex];
+                        element.textContent = updated.join('');
+                        currentIndex++;
+
+                        if (currentIndex < finalText.length) {
+                            setTimeout(revealNextLetter, pauseBetween);
+                        } else if (callback) {
+                            callback();
+                        }
+                    }
+                }, intervalSpeed);
+            }
+
+            element.textContent = "_".repeat(finalText.length);
+            revealNextLetter();
+        }
+
+        function loopScramble() {
+            const el1 = document.getElementById("typewriter");
+            const el2 = document.getElementById("typewriter2");
+
+            scrambleText(el1, "SURA", 50, 100, () => {
+                scrambleText(el2, "CODER", 50, 100, () => {
+                    // Wait 10 seconds, then restart
+                    setTimeout(loopScramble, 10000);
+                });
+            });
+        }
+
+        loopScramble();
+
+        document.querySelectorAll(".nav-link").forEach(link => {
+            link.addEventListener("click", e => {
+                e.preventDefault();
+                const targetId = link.getAttribute("href").slice(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - document.querySelector(".header").offsetHeight,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
